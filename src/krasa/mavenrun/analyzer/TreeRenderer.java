@@ -52,7 +52,8 @@ public class TreeRenderer extends ColoredTreeCellRenderer {
 			}
 			append(artifact.getArtifactId(), boldAttributes);
             MavenArtifactNode mavenArtifactNode = myTreeUserObject.getMavenArtifactNode();
-            if(mavenArtifactNode.getState() == MavenArtifactState.CONFLICT){
+            if(mavenArtifactNode.getState() == MavenArtifactState.CONFLICT
+                    && (mavenArtifactNode.getRelatedArtifact() == null || !curVersion.equals(mavenArtifactNode.getRelatedArtifact().getVersion()))){
                 String realVersion = mavenArtifactNode.getRelatedArtifact().getVersion();
                 append(" : " + curVersion +" (omitted for conflict with"+ realVersion +")" + " [" + classifier + artifact.getScope() + "]", attributes);
             } else {
