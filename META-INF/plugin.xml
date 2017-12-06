@@ -2,29 +2,31 @@
 
 	<id>MavenRunHelper</id>
 	<name>Maven Helper</name>
-    <version>3.2.138.1503.1</version>
-	<!--<version>1.7.12</version>-->
+	<version>3.6.172.1454.0</version>
 
 	<vendor url="https://github.com/krasa/MavenHelper" email="vojta.krasa@gmail.com">Vojtech
 		Krasa
 	</vendor>
 
 	<description><![CDATA[
+	    A must have plugin for working with Maven.<br><br>
 		Provides:<br>
 		<ul>
+		<li>easy way for finding and excluding conflicting dependencies</li>
+        <li>actions to run/debug maven goals for a module that contains the current file or on the root module</li>
         <li>actions to run/debug the current test file. 
-        <br>If maven-surefire-plugin is configured to skip or exclude the test, 'verify' goal will be used, see different configuration styles at <a href="https://github.com/harishkannarao/MavenSurefireFailsafeExamples">https://github.com/harishkannarao/MavenSurefireFailsafeExamples</a> 
-        </li><li>actions to run/debug maven goals for a module that contains the current file
-        </li><li>easy way to find and exclude conflicting dependencies
+        <br>If maven-surefire-plugin is configured to skip or exclude the test, 'verify' goal will be used, see different configuration styles at <a href="https://github.com/harishkannarao/MavenSurefireFailsafeExamples">https://github.com/harishkannarao/MavenSurefireFailsafeExamples</a>
+        </li> 
         </ul>
         <br>    
         Usage:<br>
 		<ul>
         <li>Right click in Editor | Run Maven<br>
-        </li><li>Right click in Project View Toolbar | Run Maven<br>
-        </li><li>CTRL + ALT + R - "Quick Run Maven Goal" action<br>
+        </li><li>Right click in Project View Toolbar | (Run|Debug) Maven<br>
+        </li><li>CTRL + ALT + R - "Quick Run Maven Goal" action (you can use Delete key in the popup)<br>
+        </li><li>CTRL + SHIFT + ALT + R - for running goals on the root module (you can use Delete key in the popup)<br>
         <br>
-        </li><li>Customize goals: Settings | (Other Settings) | Maven Helper <br>
+        </li><li>Customize goals: Settings | Other Settings | Maven Helper <br>
         </li><li>Define shortcuts: Settings | Keymap | Plug-ins | Maven Helper <br>
     	<br>
         </li><li>Open pom file, click on 'Dependency Analyzer' tab, right click in the tree for context actions.<br>
@@ -35,6 +37,16 @@
       ]]></description>
 
 	<change-notes><![CDATA[
+            <br>3.6
+            <br> - Option in settings for running goals on non-imported poms
+            <br>3.5
+            <br> - added Delete key shortcut for popups
+            <br>3.4
+            <br> - added a shortcut for Jump To Source
+            <br>3.3
+            <br> - Improved displaying of version conflicts - colors, the right version according to Maven rules (Thanks to <a href="https://github.com/fengyie007">fengyie007</a>)
+            <br> - Moved buttons
+            <br> - Remembering the last selected radio button
             <br>3.2
             <br> - warning for removing -Didea.maven3.use.compat.resolver
             <br>3.1
@@ -73,31 +85,25 @@
 	<!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
 	<!--<idea-version since-build="129.60" until-build="132.000"/>-->
 	<!--<idea-version since-build="132.947" until-build="138.1503"/>-->
-	<idea-version since-build="138.1503"/>
+	<idea-version since-build="172.1454"/>
 
 	<application-components>
 		<component>
-			<implementation-class>krasa.mavenrun.ApplicationComponent</implementation-class>
+			<implementation-class>krasa.mavenhelper.ApplicationComponent</implementation-class>
 		</component>
 	</application-components>
 
 	<project-components>
 	</project-components>
 
-	<!--<actions>-->
-	<!--&lt;!&ndash;FOR DEV ONLY&ndash;&gt;-->
-	<!--<action id="OpenDependencyAnalyzerAction" class="krasa.mavenrun.analyzer.OpenDependencyAnalyzerAction" icon="MavenIcons.MavenLogo"  text="OpenDependencyAnalyzerAction" description="OpenDependencyAnalyzerAction">-->
-	<!--<add-to-group group-id="MainToolBar"  anchor="last"/>-->
-	<!--</action>-->
-	<!--</actions>-->
 	<actions>
 		<!-- Add your actions here -->
-		<action id="MavenHelper.QuickRunMavenGoal" class="krasa.mavenrun.action.QuickRunMavenGoalAction" text="Quick Run Maven Goal"
+		<action id="MavenHelper.QuickRunMavenGoal" class="krasa.mavenhelper.action.QuickRunMavenGoalAction" text="Quick Run Maven Goal"
 				description="Quick Run Maven Goal">
 			<add-to-group group-id="WindowMenu" anchor="first"/>
 			<keyboard-shortcut keymap="$default" first-keystroke="ctrl alt R"/>
 		</action>
-		<action id="MavenHelper.QuickRunRootMavenGoal" class="krasa.mavenrun.action.QuickRunRootMavenGoalAction" text="Quick Run Root Maven Goal"
+		<action id="MavenHelper.QuickRunRootMavenGoal" class="krasa.mavenhelper.action.QuickRunRootMavenGoalAction" text="Quick Run Root Maven Goal"
 				description="Quick Run Root Maven Goal">
 			<add-to-group group-id="WindowMenu" anchor="first"/>
 			<keyboard-shortcut keymap="$default" first-keystroke="ctrl shift alt R"/>
@@ -108,8 +114,8 @@
 	
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
-		<fileEditorProvider implementation="krasa.mavenrun.analyzer.MyFileEditorProvider"/>
-		<applicationConfigurable instance="krasa.mavenrun.MyConfigurable" id="MavenRunHelper" displayName="Maven Helper"  />
+		<fileEditorProvider implementation="krasa.mavenhelper.analyzer.MyFileEditorProvider"/>
+		<applicationConfigurable instance="krasa.mavenhelper.MyConfigurable" id="MavenRunHelper" displayName="Maven Helper"  />
 	</extensions>
 
 	<depends>org.jetbrains.idea.maven</depends>
