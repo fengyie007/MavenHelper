@@ -1,8 +1,14 @@
 package krasa.mavenhelper.analyzer;
 
+import com.esotericsoftware.minlog.Log;
+import com.intellij.json.JsonUtil;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.ui.ColoredTreeCellRenderer;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.SimpleTextAttributes;
+import krasa.mavenhelper.analyzer.action.BaseAction;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.idea.maven.model.MavenArtifact;
 import org.jetbrains.idea.maven.model.MavenArtifactNode;
@@ -17,7 +23,10 @@ import java.awt.*;
  */
 public class TreeRenderer extends ColoredTreeCellRenderer {
 
-	private final JCheckBox showGroupId;
+    private static final Logger LOG = Logger.getInstance(TreeRenderer.class);
+    private boolean flag = false;
+
+    private final JCheckBox showGroupId;
 	private final GuiForm guiForm;
 	private final SimpleTextAttributes errorBoldAttributes;
 
