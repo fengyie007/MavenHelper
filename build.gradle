@@ -1,0 +1,65 @@
+#!groovy
+// The above triggers groovy syntax highlighting in vim
+buildscript {
+    repositories {
+//        maven { url 'https://maven.aliyun.com/repository/jcenter'}
+//        maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service' }
+//        maven { url 'https://maven.aliyun.com/repository/central'}
+//        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+        maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service' }
+        maven { url 'https://dl.bintray.com/jetbrains/intellij-third-party-dependencies/' }
+    }
+    // https://github.com/JetBrains/gradle-intellij-plugin/ 关注开发插件版本
+    dependencies {
+        classpath "org.jetbrains.intellij.plugins:gradle-intellij-plugin:0.6.5"
+    }
+}
+plugins {
+    id "org.jetbrains.intellij" version "0.6.5"
+    id "java"
+}
+
+//apply plugin: 'org.jetbrains.intellij'
+//apply plugin: 'maven'
+//apply plugin: 'java'
+//apply plugin: 'idea'
+
+group = 'krasa'
+description = 'MavenRunHelper'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+intellij {
+    version '2021.1.2'
+    plugins = ['java','maven','terminal','uml','maven-ext']
+    pluginName 'MavenRunHelper'
+    updateSinceUntilBuild false
+    type 'IU'
+    buildSearchableOptions.enabled = false
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'https://jetbrains.bintray.com/intellij-plugin-service'
+    }
+}
+
+dependencies {
+    implementation "org.objenesis:objenesis:3.0.1"
+    implementation "org.apache.maven.shared:maven-shared-utils:0.7"
+    implementation 'commons-beanutils:commons-beanutils:1.9.3'
+    implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation 'uk.com.robust-it:cloning:1.9.12'
+    // provided by the core:
+    testImplementation 'net.bytebuddy:byte-buddy-dep:1.10.10'
+    testImplementation 'org.assertj:assertj-core:3.16.1'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+}
+
